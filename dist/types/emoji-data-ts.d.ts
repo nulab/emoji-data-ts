@@ -12,9 +12,6 @@ export interface Emoji {
     image_url: string;
     image: string;
 }
-interface Option {
-    cdnPath?: string;
-}
 export interface EmojiImage {
     x: number;
     y: number;
@@ -23,12 +20,11 @@ export interface EmojiImage {
     imageUrl: string;
 }
 export declare class EmojiData {
-    private opts?;
     private emojiValMap;
     private emojiUnifiedValMap;
     emojiCategoryLookUp: Map<string, Emoji[]>;
     readonly emojiUnicodeRegex: RegExp;
-    constructor(opts?: Option | undefined);
+    constructor();
     getVariationEmojis(): Emoji[];
     findImage: (actual: Emoji, variation?: Emoji | undefined) => EmojiImage;
     getImageDataWithColon(emojiStrWithColon: string): EmojiImage | null;
@@ -47,7 +43,5 @@ export declare class EmojiData {
     convertUniToStr(emojiUni: string, withoutSkinToneUni: string, skinToneUni?: string): string;
     private initEnv;
     private initEmojiMap;
-    private getEmojiImgPath;
     private initUnified;
 }
-export {};

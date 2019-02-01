@@ -19,10 +19,6 @@ export interface Emoji {
   image: string
 }
 
-interface Option {
-  cdnPath?: string
-}
-
 export interface EmojiImage {
   x: number
   y: number
@@ -59,7 +55,7 @@ export class EmojiData {
   public emojiCategoryLookUp: Map<string, Emoji[]> = new Map()
   public readonly emojiUnicodeRegex = this.initUnified()
 
-  constructor(private opts?: Option) {
+  constructor() {
     this.initEnv()
   }
   public getVariationEmojis() {
@@ -192,11 +188,11 @@ export class EmojiData {
     for (const e of emojiData) {
       if (e.skin_variations != null) {
         for (const skin of Object.values(e.skin_variations)) {
-          skin.image_url = this.getEmojiImgPath(skin.image)
+          skin.image_url = skin.image
         }
       }
 
-      e.image_url = this.getEmojiImgPath(e.image)
+      e.image_url = e.image
       for (const name of e.short_names) {
         this.emojiValMap.set(name, e)
       }
@@ -212,12 +208,12 @@ export class EmojiData {
     }
   }
 
-  private getEmojiImgPath(imageName: string) {
-    if (this.opts == null) return ''
-    if (this.opts.cdnPath == null) return ''
+  // private getEmojiImgPath(imageName: string) {
+  //   if (this.opts == null) return ''
+  //   if (this.opts.cdnPath == null) return ''
 
-    return `${this.opts.cdnPath}/${currentVersion}/${imageName}`
-  }
+  //   return `${this.opts.cdnPath}/${currentVersion}/${imageName}`
+  // }
 
   private initUnified() {
     const a = []

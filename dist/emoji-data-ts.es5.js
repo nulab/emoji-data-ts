@@ -34804,7 +34804,6 @@ var e = [
   }
 ];
 
-var currentVersion = '4.1.0';
 var emojiData = e;
 var skinToneUnicodeMap = {
     '\uD83C\uDFFB': 'skin-tone-2',
@@ -34826,9 +34825,8 @@ var categoriesData = [
 var sheetColumns = 52;
 var sheetRows = 52;
 var EmojiData = /** @class */ (function () {
-    function EmojiData(opts) {
+    function EmojiData() {
         var _this = this;
-        this.opts = opts;
         this.emojiValMap = new Map();
         this.emojiUnifiedValMap = new Map();
         this.emojiCategoryLookUp = new Map();
@@ -34936,10 +34934,10 @@ var EmojiData = /** @class */ (function () {
             if (e_1.skin_variations != null) {
                 for (var _a = 0, _b = Object.values(e_1.skin_variations); _a < _b.length; _a++) {
                     var skin = _b[_a];
-                    skin.image_url = this.getEmojiImgPath(skin.image);
+                    skin.image_url = skin.image;
                 }
             }
-            e_1.image_url = this.getEmojiImgPath(e_1.image);
+            e_1.image_url = e_1.image;
             for (var _c = 0, _d = e_1.short_names; _c < _d.length; _c++) {
                 var name_1 = _d[_c];
                 this.emojiValMap.set(name_1, e_1);
@@ -34959,13 +34957,11 @@ var EmojiData = /** @class */ (function () {
             _loop_1(c);
         }
     };
-    EmojiData.prototype.getEmojiImgPath = function (imageName) {
-        if (this.opts == null)
-            return '';
-        if (this.opts.cdnPath == null)
-            return '';
-        return this.opts.cdnPath + "/" + currentVersion + "/" + imageName;
-    };
+    // private getEmojiImgPath(imageName: string) {
+    //   if (this.opts == null) return ''
+    //   if (this.opts.cdnPath == null) return ''
+    //   return `${this.opts.cdnPath}/${currentVersion}/${imageName}`
+    // }
     EmojiData.prototype.initUnified = function () {
         var a = [];
         for (var _i = 0, emojiData_2 = emojiData; _i < emojiData_2.length; _i++) {
