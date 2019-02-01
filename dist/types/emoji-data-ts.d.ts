@@ -24,6 +24,7 @@ export declare class EmojiData {
     private emojiUnifiedValMap;
     emojiCategoryLookUp: Map<string, Emoji[]>;
     readonly emojiUnicodeRegex: RegExp;
+    readonly currentVersion: string;
     constructor();
     getVariationEmojis(): Emoji[];
     findImage: (actual: Emoji, variation?: Emoji | undefined) => EmojiImage;

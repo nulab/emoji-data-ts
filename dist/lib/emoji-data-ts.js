@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var emoji_json_1 = require("./emoji/4.1.0/emoji.json");
-var currentVersion = '4.1.0';
+var currentVersion = "4.1.0";
 var emojiData = emoji_json_1.default;
 var skinToneUnicodeMap = {
     '\uD83C\uDFFB': 'skin-tone-2',
@@ -74,6 +74,13 @@ var EmojiData = /** @class */ (function () {
         };
         this.initEnv();
     }
+    Object.defineProperty(EmojiData.prototype, "currentVersion", {
+        get: function () {
+            return currentVersion;
+        },
+        enumerable: true,
+        configurable: true
+    });
     EmojiData.prototype.getVariationEmojis = function () {
         return emojiData.filter(function (a) { return a.skin_variations != null; });
     };

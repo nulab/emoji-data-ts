@@ -55,6 +55,10 @@ export class EmojiData {
   public emojiCategoryLookUp: Map<string, Emoji[]> = new Map()
   public readonly emojiUnicodeRegex = this.initUnified()
 
+  public get currentVersion(): string {
+    return currentVersion
+  }
+
   constructor() {
     this.initEnv()
   }

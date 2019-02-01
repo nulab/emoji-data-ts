@@ -34804,6 +34804,7 @@ var e = [
   }
 ];
 
+var currentVersion = "4.1.0";
 var emojiData = e;
 var skinToneUnicodeMap = {
     '\uD83C\uDFFB': 'skin-tone-2',
@@ -34876,6 +34877,13 @@ var EmojiData = /** @class */ (function () {
         };
         this.initEnv();
     }
+    Object.defineProperty(EmojiData.prototype, "currentVersion", {
+        get: function () {
+            return currentVersion;
+        },
+        enumerable: true,
+        configurable: true
+    });
     EmojiData.prototype.getVariationEmojis = function () {
         return emojiData.filter(function (a) { return a.skin_variations != null; });
     };
