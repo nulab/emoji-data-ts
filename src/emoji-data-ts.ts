@@ -1,10 +1,10 @@
-const currentVersion = '4.1.0'
 import e from './emoji/4.1.0/emoji.json'
-let emojiData: Emoji[] = e
+const currentVersion = '4.1.0'
+const emojiData: Emoji[] = e
 
-if (e == null) {
-  emojiData = require('./emoji/4.1.0/emoji.json') as Emoji[]
-}
+// if (e == null) {
+//   emojiData = require('./emoji/4.1.0/emoji.json') as Emoji[]
+// }
 
 export interface Emoji {
   short_name: string
@@ -61,6 +61,9 @@ export class EmojiData {
 
   constructor(private opts?: Option) {
     this.initEnv()
+  }
+  public getVariationEmojis() {
+    return emojiData.filter(a => a.skin_variations != null)
   }
 
   public findImage = (actual: Emoji, variation?: Emoji): EmojiImage => {
@@ -121,6 +124,10 @@ export class EmojiData {
     return this.emojiValMap.get(emojiStr)
   }
 
+  public searchEmoji(emojiStr: string, limit: number): Emoji[] {
+    return emojiData.filter(a => a.short_name.indexOf(emojiStr) > -1).slice(0, limit)
+  }
+
   public isSkinTone(skinTone: string): boolean {
     return skinTone != null && skinTone.indexOf('skin-tone-') > -1
   }
@@ -130,8 +137,38 @@ export class EmojiData {
       return this.convertUniToStr(m, p1, p2)
     })
   }
+  public getSkinInfo = (
+    emoji: Emoji,
+    skinTone?: string
+  ): {
+    sheet_x: number
+    sheet_y: number
+    unified: string
+    short_name: string
+    image_url: string
+  } => {
+    if (skinTone != null && this.isSkinTone(skinTone)) {
+      const d = this.emojiValMap.get(skinTone)
+      const pos = this.findImage(emoji, d)
+      return {
+        sheet_x: pos.x,
+        sheet_y: pos.y,
+        unified: emoji.unified,
+        short_name: skinTone,
+        image_url: pos.imageUrl
+      }
+    }
 
-  private convertUniToStr(
+    return {
+      sheet_x: emoji.sheet_x,
+      sheet_y: emoji.sheet_y,
+      unified: emoji.unified,
+      short_name: emoji.short_name,
+      image_url: emoji.image_url
+    }
+  }
+
+  public convertUniToStr(
     emojiUni: string,
     withoutSkinToneUni: string,
     skinToneUni?: string

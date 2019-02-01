@@ -29,13 +29,22 @@ export declare class EmojiData {
     emojiCategoryLookUp: Map<string, Emoji[]>;
     readonly emojiUnicodeRegex: RegExp;
     constructor(opts?: Option | undefined);
+    getVariationEmojis(): Emoji[];
     findImage: (actual: Emoji, variation?: Emoji | undefined) => EmojiImage;
     getImageDataWithColon(emojiStrWithColon: string): EmojiImage | null;
     getImageData(emojiStr: string): EmojiImage | null;
     getEmojiByName(emojiStr: string): Emoji | undefined;
+    searchEmoji(emojiStr: string, limit: number): Emoji[];
     isSkinTone(skinTone: string): boolean;
     replaceEmojiToStr(text: string): string;
-    private convertUniToStr;
+    getSkinInfo: (emoji: Emoji, skinTone?: string | undefined) => {
+        sheet_x: number;
+        sheet_y: number;
+        unified: string;
+        short_name: string;
+        image_url: string;
+    };
+    convertUniToStr(emojiUni: string, withoutSkinToneUni: string, skinToneUni?: string): string;
     private initEnv;
     private initEmojiMap;
     private getEmojiImgPath;

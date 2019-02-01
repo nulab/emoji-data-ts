@@ -1,11 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var currentVersion = '4.1.0';
 var emoji_json_1 = require("./emoji/4.1.0/emoji.json");
+var currentVersion = '4.1.0';
 var emojiData = emoji_json_1.default;
-if (emoji_json_1.default == null) {
-    emojiData = require('./emoji/4.1.0/emoji.json');
-}
 var skinToneUnicodeMap = {
     '\uD83C\uDFFB': 'skin-tone-2',
     '\uD83C\uDFFC': 'skin-tone-3',
@@ -27,6 +24,7 @@ var sheetColumns = 52;
 var sheetRows = 52;
 var EmojiData = /** @class */ (function () {
     function EmojiData(opts) {
+        var _this = this;
         this.opts = opts;
         this.emojiValMap = new Map();
         this.emojiUnifiedValMap = new Map();
@@ -55,8 +53,31 @@ var EmojiData = /** @class */ (function () {
                 imageUrl: actual.image_url
             };
         };
+        this.getSkinInfo = function (emoji, skinTone) {
+            if (skinTone != null && _this.isSkinTone(skinTone)) {
+                var d = _this.emojiValMap.get(skinTone);
+                var pos = _this.findImage(emoji, d);
+                return {
+                    sheet_x: pos.x,
+                    sheet_y: pos.y,
+                    unified: emoji.unified,
+                    short_name: skinTone,
+                    image_url: pos.imageUrl
+                };
+            }
+            return {
+                sheet_x: emoji.sheet_x,
+                sheet_y: emoji.sheet_y,
+                unified: emoji.unified,
+                short_name: emoji.short_name,
+                image_url: emoji.image_url
+            };
+        };
         this.initEnv();
     }
+    EmojiData.prototype.getVariationEmojis = function () {
+        return emojiData.filter(function (a) { return a.skin_variations != null; });
+    };
     EmojiData.prototype.getImageDataWithColon = function (emojiStrWithColon) {
         var emojiStr = emojiStrWithColon.substr(1, emojiStrWithColon.length - 2);
         return this.getImageData(emojiStr);
@@ -80,6 +101,9 @@ var EmojiData = /** @class */ (function () {
     };
     EmojiData.prototype.getEmojiByName = function (emojiStr) {
         return this.emojiValMap.get(emojiStr);
+    };
+    EmojiData.prototype.searchEmoji = function (emojiStr, limit) {
+        return emojiData.filter(function (a) { return a.short_name.indexOf(emojiStr) > -1; }).slice(0, limit);
     };
     EmojiData.prototype.isSkinTone = function (skinTone) {
         return skinTone != null && skinTone.indexOf('skin-tone-') > -1;
