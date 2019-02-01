@@ -7,7 +7,7 @@ import json from 'rollup-plugin-json'
 
 const pkg = require('./package.json')
 
-const libraryName = 'emoji-ts'
+const libraryName = 'emoji-data-ts'
 
 export default {
   input: `src/${libraryName}.ts`,

@@ -1,8 +1,7 @@
 const currentVersion = '4.1.0'
-// const e =  require("./emoji/4.1.0/emoji.json");
 import e from './emoji/4.1.0/emoji.json'
 let emojiData: Emoji[] = e
-// For jest test. jest doesn't include import/from
+
 if (e == null) {
   emojiData = require('./emoji/4.1.0/emoji.json') as Emoji[]
 }

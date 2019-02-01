@@ -1,11 +1,11 @@
 {
-  "name": "emoji-ts",
+  "name": "emoji-data-ts",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/emoji-ts.umd.js",
-  "module": "dist/emoji-ts.es5.js",
-  "typings": "dist/types/emoji-ts.d.ts",
+  "main": "dist/emoji-data-ts.umd.js",
+  "module": "dist/emoji-data-ts.es5.js",
+  "typings": "dist/types/emoji-data-ts.d.ts",
   "files": [
     "dist"
   ],
