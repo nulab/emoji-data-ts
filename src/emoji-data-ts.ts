@@ -179,7 +179,7 @@ export class EmojiData {
     if (this.opts == null) return ''
     if (this.opts.cdnPath == null) return ''
 
-    return `${this.opts.cdnPath}emoji/${currentVersion}/${imageName}`
+    return `${this.opts.cdnPath}/${currentVersion}/${imageName}`
   }
 
   private initUnified() {
