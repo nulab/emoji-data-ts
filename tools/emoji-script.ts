@@ -3,8 +3,8 @@ const path = require("path");
 const pack = require("../package.json");
 const emojiRawData = require("emoji-datasource-apple/emoji.json");
 
-
 const emojiVersion = pack.devDependencies["emoji-datasource-apple"];
+
 function findImage(vendorName: string, image: string): string {
     const emojiPath = path.resolve(__dirname, "..",  "node_modules", `emoji-datasource-${vendorName}`, "img", vendorName, "64", image);
     if (fs.existsSync(emojiPath)){
