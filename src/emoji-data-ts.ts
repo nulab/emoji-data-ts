@@ -1,4 +1,4 @@
-import e from './emoji/4.1.0/emoji.json'
+import e from './emoji.json'
 const currentVersion = '4.1.0'
 const emojiData: Emoji[] = e
 

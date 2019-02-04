@@ -5,35 +5,6 @@ const emojiRawData = require("emoji-datasource-apple/emoji.json");
 
 const emojiVersion = pack.devDependencies["emoji-datasource-apple"];
 
-function findImage(vendorName: string, image: string): string {
-    const emojiPath = path.resolve(__dirname, "..",  "node_modules", `emoji-datasource-${vendorName}`, "img", vendorName, "64", image);
-    if (fs.existsSync(emojiPath)){
-        return emojiPath;
-    }
-
-    return findImage("google", image);
-}
-
-function updateImage(emojis: any[]) {
-    emojis.forEach((emoji: any) => {
-        const emojiPath = findImage("apple", emoji.image);
-        const inStr = fs.createReadStream(emojiPath);
-        const dir = path.resolve(__dirname, "..", "src", "emoji", emojiVersion);
-        if (!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
-        }
-        const outStr = fs.createWriteStream(path.resolve(dir, emoji.image));
-
-        inStr.pipe(outStr);
-	})
-	
-	const inStr = fs.createReadStream(path.resolve(__dirname, "..",  "node_modules", "emoji-datasource-apple", "img", "apple", "sheets-256", "64.png"));
-	const dir = path.resolve(__dirname, "..", "src", "emoji", emojiVersion);
-
-	const outStr = fs.createWriteStream(path.resolve(dir, "64.png"));
-	inStr.pipe(outStr);
-}
-
 const convert = function(unicode: string) {
     if (unicode.indexOf("-") > -1) {
         const parts = [];
@@ -97,14 +68,13 @@ function updateEmojiData() {
 		fs.mkdirSync(dir);
 	}
 
-    fs.writeFileSync(`src/emoji/${emojiVersion}/emoji.json`, JSON.stringify(emojis, null, 2));
+    fs.writeFileSync(`src/emoji.json`, JSON.stringify(emojis, null, 2));
 
     return emojis;
 }
 
 function main() {
-    const emojis = updateEmojiData();
-    updateImage(emojis)
+    updateEmojiData();
 }
 
 main()
