@@ -1,10 +1,6 @@
-import e from './emoji.json'
+import * as e from './emoji.json'
 const currentVersion = '4.1.0'
 const emojiData: Emoji[] = e
-
-// if (e == null) {
-//   emojiData = require('./emoji/4.1.0/emoji.json') as Emoji[]
-// }
 
 export interface Emoji {
   short_name: string
@@ -66,32 +62,6 @@ export class EmojiData {
     return emojiData.filter(a => a.skin_variations != null)
   }
 
-  public findImage = (actual: Emoji, variation?: Emoji): EmojiImage => {
-    const sheetSizeX = 100 * sheetColumns
-    const sheetSizeY = 100 * sheetRows
-    const multiplyX = 100 / (sheetColumns - 1)
-    const multiplyY = 100 / (sheetRows - 1)
-
-    if (actual.skin_variations != null && variation != null) {
-      const a = actual.skin_variations[variation.unified]
-      return {
-        x: a.sheet_x * multiplyX,
-        y: a.sheet_y * multiplyY,
-        sheetSizeX,
-        sheetSizeY,
-        imageUrl: a.image_url
-      }
-    }
-
-    return {
-      x: actual.sheet_x * multiplyX,
-      y: actual.sheet_y * multiplyY,
-      sheetSizeX,
-      sheetSizeY,
-      imageUrl: actual.image_url
-    }
-  }
-
   public getImageDataWithColon(emojiStrWithColon: string): EmojiImage | null {
     const emojiStr = emojiStrWithColon.substr(1, emojiStrWithColon.length - 2)
     return this.getImageData(emojiStr)
@@ -137,6 +107,7 @@ export class EmojiData {
       return this.convertUniToStr(m, p1, p2)
     })
   }
+
   public getSkinInfo = (
     emoji: Emoji,
     skinTone?: string
@@ -168,7 +139,7 @@ export class EmojiData {
     }
   }
 
-  public convertUniToStr(
+  private convertUniToStr(
     emojiUni: string,
     withoutSkinToneUni: string,
     skinToneUni?: string
@@ -212,13 +183,6 @@ export class EmojiData {
     }
   }
 
-  // private getEmojiImgPath(imageName: string) {
-  //   if (this.opts == null) return ''
-  //   if (this.opts.cdnPath == null) return ''
-
-  //   return `${this.opts.cdnPath}/${currentVersion}/${imageName}`
-  // }
-
   private initUnified() {
     const a = []
     for (const e of emojiData) {
@@ -229,5 +193,31 @@ export class EmojiData {
       return b.length - a.length
     })
     return new RegExp(`(${a.join('|')})(\uD83C[\uDFFB-\uDFFF])?`, 'g')
+  }
+
+  private findImage = (actual: Emoji, variation?: Emoji): EmojiImage => {
+    const sheetSizeX = 100 * sheetColumns
+    const sheetSizeY = 100 * sheetRows
+    const multiplyX = 100 / (sheetColumns - 1)
+    const multiplyY = 100 / (sheetRows - 1)
+
+    if (actual.skin_variations != null && variation != null) {
+      const a = actual.skin_variations[variation.unified]
+      return {
+        x: a.sheet_x * multiplyX,
+        y: a.sheet_y * multiplyY,
+        sheetSizeX,
+        sheetSizeY,
+        imageUrl: a.image_url
+      }
+    }
+
+    return {
+      x: actual.sheet_x * multiplyX,
+      y: actual.sheet_y * multiplyY,
+      sheetSizeX,
+      sheetSizeY,
+      imageUrl: actual.image_url
+    }
   }
 }
