@@ -1,6 +1,6 @@
-import * as e from './emoji.json'
+import e from './emoji.json'
 const currentVersion = '4.1.0'
-const emojiData: Emoji[] = e
+const emojis: Emoji[] = e
 
 export interface Emoji {
   short_name: string
@@ -31,7 +31,7 @@ const skinToneUnicodeMap: { [key: string]: string } = {
   '\uD83C\uDFFF': 'skin-tone-6'
 }
 
-const categoriesData = [
+export const categoriesData = [
   'Smileys & People',
   'Animals & Nature',
   'Food & Drink',
@@ -42,8 +42,8 @@ const categoriesData = [
   'Flags'
 ]
 
-const sheetColumns = 52
-const sheetRows = 52
+export const sheetColumns = 52
+export const sheetRows = 52
 
 export class EmojiData {
   private emojiValMap: Map<string, Emoji> = new Map()
@@ -59,7 +59,7 @@ export class EmojiData {
     this.initEnv()
   }
   public getVariationEmojis() {
-    return emojiData.filter(a => a.skin_variations != null)
+    return emojis.filter(a => a.skin_variations != null)
   }
 
   public getImageDataWithColon(emojiStrWithColon: string): EmojiImage | null {
@@ -95,7 +95,7 @@ export class EmojiData {
   }
 
   public searchEmoji(emojiStr: string, limit: number): Emoji[] {
-    return emojiData.filter(a => a.short_name.indexOf(emojiStr) > -1).slice(0, limit)
+    return emojis.filter(a => a.short_name.indexOf(emojiStr) > -1).slice(0, limit)
   }
 
   public isSkinTone(skinTone: string): boolean {
@@ -160,7 +160,7 @@ export class EmojiData {
   }
 
   private initEmojiMap() {
-    for (const e of emojiData) {
+    for (const e of emojis) {
       if (e.skin_variations != null) {
         for (const skin of Object.values(e.skin_variations)) {
           skin.image_url = skin.image
@@ -177,15 +177,15 @@ export class EmojiData {
 
     for (const c of categoriesData) {
       if (c !== modifierCategory) {
-        const emojis = emojiData.filter(a => a.category === c)
-        this.emojiCategoryLookUp.set(c, emojis)
+        const e = emojis.filter(a => a.category === c)
+        this.emojiCategoryLookUp.set(c, e)
       }
     }
   }
 
   private initUnified() {
     const a = []
-    for (const e of emojiData) {
+    for (const e of emojis) {
       a.push(e.char.replace('*', '\\*'))
     }
 
