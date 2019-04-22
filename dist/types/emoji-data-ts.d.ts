@@ -19,6 +19,9 @@ export interface EmojiImage {
     sheetSizeY: number;
     imageUrl: string;
 }
+export declare const categoriesData: string[];
+export declare const sheetColumns = 52;
+export declare const sheetRows = 52;
 export declare class EmojiData {
     private emojiValMap;
     private emojiUnifiedValMap;
@@ -27,7 +30,6 @@ export declare class EmojiData {
     readonly currentVersion: string;
     constructor();
     getVariationEmojis(): Emoji[];
-    findImage: (actual: Emoji, variation?: Emoji | undefined) => EmojiImage;
     getImageDataWithColon(emojiStrWithColon: string): EmojiImage | null;
     getImageData(emojiStr: string): EmojiImage | null;
     getEmojiByName(emojiStr: string): Emoji | undefined;
@@ -41,8 +43,9 @@ export declare class EmojiData {
         short_name: string;
         image_url: string;
     };
-    convertUniToStr(emojiUni: string, withoutSkinToneUni: string, skinToneUni?: string): string;
+    private convertUniToStr;
     private initEnv;
     private initEmojiMap;
     private initUnified;
+    private findImage;
 }

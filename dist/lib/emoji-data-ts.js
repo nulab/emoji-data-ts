@@ -1,8 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var emoji_json_1 = require("./emoji/4.1.0/emoji.json");
-var currentVersion = "4.1.0";
-var emojiData = emoji_json_1.default;
+var emoji_json_1 = __importDefault(require("./emoji.json"));
+var currentVersion = '4.1.0';
+var emojis = emoji_json_1.default;
 var skinToneUnicodeMap = {
     '\uD83C\uDFFB': 'skin-tone-2',
     '\uD83C\uDFFC': 'skin-tone-3',
@@ -10,7 +13,7 @@ var skinToneUnicodeMap = {
     '\uD83C\uDFFE': 'skin-tone-5',
     '\uD83C\uDFFF': 'skin-tone-6'
 };
-var categoriesData = [
+exports.categoriesData = [
     'Smileys & People',
     'Animals & Nature',
     'Food & Drink',
@@ -20,8 +23,8 @@ var categoriesData = [
     'Symbols',
     'Flags'
 ];
-var sheetColumns = 52;
-var sheetRows = 52;
+exports.sheetColumns = 52;
+exports.sheetRows = 52;
 var EmojiData = /** @class */ (function () {
     function EmojiData() {
         var _this = this;
@@ -29,29 +32,6 @@ var EmojiData = /** @class */ (function () {
         this.emojiUnifiedValMap = new Map();
         this.emojiCategoryLookUp = new Map();
         this.emojiUnicodeRegex = this.initUnified();
-        this.findImage = function (actual, variation) {
-            var sheetSizeX = 100 * sheetColumns;
-            var sheetSizeY = 100 * sheetRows;
-            var multiplyX = 100 / (sheetColumns - 1);
-            var multiplyY = 100 / (sheetRows - 1);
-            if (actual.skin_variations != null && variation != null) {
-                var a = actual.skin_variations[variation.unified];
-                return {
-                    x: a.sheet_x * multiplyX,
-                    y: a.sheet_y * multiplyY,
-                    sheetSizeX: sheetSizeX,
-                    sheetSizeY: sheetSizeY,
-                    imageUrl: a.image_url
-                };
-            }
-            return {
-                x: actual.sheet_x * multiplyX,
-                y: actual.sheet_y * multiplyY,
-                sheetSizeX: sheetSizeX,
-                sheetSizeY: sheetSizeY,
-                imageUrl: actual.image_url
-            };
-        };
         this.getSkinInfo = function (emoji, skinTone) {
             if (skinTone != null && _this.isSkinTone(skinTone)) {
                 var d = _this.emojiValMap.get(skinTone);
@@ -72,6 +52,29 @@ var EmojiData = /** @class */ (function () {
                 image_url: emoji.image_url
             };
         };
+        this.findImage = function (actual, variation) {
+            var sheetSizeX = 100 * exports.sheetColumns;
+            var sheetSizeY = 100 * exports.sheetRows;
+            var multiplyX = 100 / (exports.sheetColumns - 1);
+            var multiplyY = 100 / (exports.sheetRows - 1);
+            if (actual.skin_variations != null && variation != null) {
+                var a = actual.skin_variations[variation.unified];
+                return {
+                    x: a.sheet_x * multiplyX,
+                    y: a.sheet_y * multiplyY,
+                    sheetSizeX: sheetSizeX,
+                    sheetSizeY: sheetSizeY,
+                    imageUrl: a.image_url
+                };
+            }
+            return {
+                x: actual.sheet_x * multiplyX,
+                y: actual.sheet_y * multiplyY,
+                sheetSizeX: sheetSizeX,
+                sheetSizeY: sheetSizeY,
+                imageUrl: actual.image_url
+            };
+        };
         this.initEnv();
     }
     Object.defineProperty(EmojiData.prototype, "currentVersion", {
@@ -82,7 +85,7 @@ var EmojiData = /** @class */ (function () {
         configurable: true
     });
     EmojiData.prototype.getVariationEmojis = function () {
-        return emojiData.filter(function (a) { return a.skin_variations != null; });
+        return emojis.filter(function (a) { return a.skin_variations != null; });
     };
     EmojiData.prototype.getImageDataWithColon = function (emojiStrWithColon) {
         var emojiStr = emojiStrWithColon.substr(1, emojiStrWithColon.length - 2);
@@ -109,7 +112,7 @@ var EmojiData = /** @class */ (function () {
         return this.emojiValMap.get(emojiStr);
     };
     EmojiData.prototype.searchEmoji = function (emojiStr, limit) {
-        return emojiData.filter(function (a) { return a.short_name.indexOf(emojiStr) > -1; }).slice(0, limit);
+        return emojis.filter(function (a) { return a.short_name.indexOf(emojiStr) > -1; }).slice(0, limit);
     };
     EmojiData.prototype.isSkinTone = function (skinTone) {
         return skinTone != null && skinTone.indexOf('skin-tone-') > -1;
@@ -134,8 +137,8 @@ var EmojiData = /** @class */ (function () {
         this.initEmojiMap();
     };
     EmojiData.prototype.initEmojiMap = function () {
-        for (var _i = 0, emojiData_1 = emojiData; _i < emojiData_1.length; _i++) {
-            var e_1 = emojiData_1[_i];
+        for (var _i = 0, emojis_1 = emojis; _i < emojis_1.length; _i++) {
+            var e_1 = emojis_1[_i];
             if (e_1.skin_variations != null) {
                 for (var _a = 0, _b = Object.values(e_1.skin_variations); _a < _b.length; _a++) {
                     var skin = _b[_a];
@@ -152,26 +155,21 @@ var EmojiData = /** @class */ (function () {
         var modifierCategory = 'Skin Tones';
         var _loop_1 = function (c) {
             if (c !== modifierCategory) {
-                var emojis = emojiData.filter(function (a) { return a.category === c; });
-                this_1.emojiCategoryLookUp.set(c, emojis);
+                var e_2 = emojis.filter(function (a) { return a.category === c; });
+                this_1.emojiCategoryLookUp.set(c, e_2);
             }
         };
         var this_1 = this;
-        for (var _e = 0, categoriesData_1 = categoriesData; _e < categoriesData_1.length; _e++) {
+        for (var _e = 0, categoriesData_1 = exports.categoriesData; _e < categoriesData_1.length; _e++) {
             var c = categoriesData_1[_e];
             _loop_1(c);
         }
     };
-    // private getEmojiImgPath(imageName: string) {
-    //   if (this.opts == null) return ''
-    //   if (this.opts.cdnPath == null) return ''
-    //   return `${this.opts.cdnPath}/${currentVersion}/${imageName}`
-    // }
     EmojiData.prototype.initUnified = function () {
         var a = [];
-        for (var _i = 0, emojiData_2 = emojiData; _i < emojiData_2.length; _i++) {
-            var e_2 = emojiData_2[_i];
-            a.push(e_2.char.replace('*', '\\*'));
+        for (var _i = 0, emojis_2 = emojis; _i < emojis_2.length; _i++) {
+            var e_3 = emojis_2[_i];
+            a.push(e_3.char.replace('*', '\\*'));
         }
         a.sort(function (a, b) {
             return b.length - a.length;

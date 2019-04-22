@@ -1,5 +1,5 @@
 import { EmojiData } from '../src/emoji-data-ts'
-import * as e from '../src/emoji.json'
+import e from '../src/emoji.json'
 
 describe('Dummy test', () => {
   const normalEmoji = new EmojiData()
