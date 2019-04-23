@@ -33,7 +33,8 @@
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "travis-deploy-once": "travis-deploy-once"
+    "travis-deploy-once": "travis-deploy-once",
+    "deploy-example": "gh-pages build -d example/build/"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
@@ -96,6 +97,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "emoji-datasource-apple": "4.1.0",
     "emoji-datasource-google": "4.1.0",
+    "gh-pages": "^2.0.1",
     "husky": "^1.0.1",
     "jest": "^23.6.0",
     "jest-config": "^23.6.0",
