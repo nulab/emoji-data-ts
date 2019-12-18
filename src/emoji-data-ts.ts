@@ -95,7 +95,20 @@ export class EmojiData {
   }
 
   public searchEmoji(emojiStr: string, limit: number): Emoji[] {
-    return emojis.filter(a => a.short_name.indexOf(emojiStr) > -1).slice(0, limit)
+    const result = []
+
+    for (const emoji of emojis) {
+      const index = emoji.short_name.indexOf(emojiStr)
+      if (index > -1 && !this.isSkinTone(emoji.short_name)) {
+        result.push({ index, emoji })
+      }
+    }
+
+    return result
+      .sort((a, b) => a.emoji.short_name.length - b.emoji.short_name.length)
+      .sort((a, b) => a.index - b.index)
+      .map(a => a.emoji)
+      .slice(0, limit)
   }
 
   public isSkinTone(skinTone: string): boolean {

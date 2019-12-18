@@ -64,9 +64,18 @@ describe('Dummy test', () => {
 
   it('searchEmoji returns correct emoji list', () => {
     const searchWord = 's'
-    expect(normalEmoji.searchEmoji(searchWord, 10)).toEqual(
-      e.filter(a => a.short_name.indexOf(searchWord) > -1).slice(0, 10)
-    )
+    expect(normalEmoji.searchEmoji(searchWord, 10).map(a => a.short_name)).toEqual([
+      'sa',
+      'ski',
+      'sob',
+      'six',
+      'sos',
+      'soon',
+      'stew',
+      'sled',
+      'sake',
+      'ship'
+    ])
   })
 
   it(':ok_hand::skin-tone-5: is judged true', () => {

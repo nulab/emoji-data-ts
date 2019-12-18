@@ -34912,7 +34912,19 @@ var EmojiData = /** @class */ (function () {
         return this.emojiValMap.get(emojiStr);
     };
     EmojiData.prototype.searchEmoji = function (emojiStr, limit) {
-        return emojis.filter(function (a) { return a.short_name.indexOf(emojiStr) > -1; }).slice(0, limit);
+        var result = [];
+        for (var _i = 0, emojis_1 = emojis; _i < emojis_1.length; _i++) {
+            var emoji = emojis_1[_i];
+            var index = emoji.short_name.indexOf(emojiStr);
+            if (index > -1 && !this.isSkinTone(emoji.short_name)) {
+                result.push({ index: index, emoji: emoji });
+            }
+        }
+        return result
+            .sort(function (a, b) { return a.emoji.short_name.length - b.emoji.short_name.length; })
+            .sort(function (a, b) { return a.index - b.index; })
+            .map(function (a) { return a.emoji; })
+            .slice(0, limit);
     };
     EmojiData.prototype.isSkinTone = function (skinTone) {
         return skinTone != null && skinTone.indexOf('skin-tone-') > -1;
@@ -34937,8 +34949,8 @@ var EmojiData = /** @class */ (function () {
         this.initEmojiMap();
     };
     EmojiData.prototype.initEmojiMap = function () {
-        for (var _i = 0, emojis_1 = emojis; _i < emojis_1.length; _i++) {
-            var e_1 = emojis_1[_i];
+        for (var _i = 0, emojis_2 = emojis; _i < emojis_2.length; _i++) {
+            var e_1 = emojis_2[_i];
             if (e_1.skin_variations != null) {
                 for (var _a = 0, _b = Object.values(e_1.skin_variations); _a < _b.length; _a++) {
                     var skin = _b[_a];
@@ -34967,8 +34979,8 @@ var EmojiData = /** @class */ (function () {
     };
     EmojiData.prototype.initUnified = function () {
         var a = [];
-        for (var _i = 0, emojis_2 = emojis; _i < emojis_2.length; _i++) {
-            var e_3 = emojis_2[_i];
+        for (var _i = 0, emojis_3 = emojis; _i < emojis_3.length; _i++) {
+            var e_3 = emojis_3[_i];
             a.push(e_3.char.replace('*', '\\*'));
         }
         a.sort(function (a, b) {
