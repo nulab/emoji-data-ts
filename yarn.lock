@@ -2752,15 +2752,15 @@ email-addresses@^3.0.1:
   resolved "https://registry.yarnpkg.com/email-addresses/-/email-addresses-3.1.0.tgz#cabf7e085cbdb63008a70319a74e6136188812fb"
   integrity sha512-k0/r7GrWVL32kZlGwfPNgB2Y/mMXVTq/decgLczm/j34whdaspNrZO8CnXPf1laaHxI6ptUlsnAxN+UAPw+fzg==
 
-emoji-datasource-apple@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/emoji-datasource-apple/-/emoji-datasource-apple-4.1.0.tgz#e6725311b115144a32fb60043416a755fea30bf5"
-  integrity sha1-5nJTEbEVFEoy+2AENBanVf6jC/U=
+emoji-datasource-apple@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/emoji-datasource-apple/-/emoji-datasource-apple-5.0.1.tgz#fd3a3fb9993f1c58a53b015e3a30fe640641044f"
+  integrity sha512-VmbD3iwv5FS2XUuxzmRpkicGNwXWrMe45f5ZL6YkcMznp0YtCsKO2bCxsSZ41XU1aWtwH5IZDqF12038TC01kw==
 
-emoji-datasource-google@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/emoji-datasource-google/-/emoji-datasource-google-4.1.0.tgz#d69be74d48c76ee2bb9fcb4e7920f27fa12dde9e"
-  integrity sha1-1pvnTUjHbuK7n8tOeSDyf6Et3p4=
+emoji-datasource-google@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/emoji-datasource-google/-/emoji-datasource-google-5.0.1.tgz#81ac5bdbbd153976196a516d840e04303f19375d"
+  integrity sha512-JLlz6tcuNRqg/BUhfWjWmOAaj8VhBvF7E88yRblMh+6c3IBmSeAqlYbepsavS1QPEhhvZICGUkch7+yxWTrRlQ==
 
 emoji-regex@^7.0.1:
   version "7.0.3"

@@ -118,7 +118,7 @@
     "typescript": "3.1"
   },
   "dependencies": {
-    "emoji-datasource-apple": "4.1.0",
-    "emoji-datasource-google": "4.1.0"
+    "emoji-datasource-apple": "5.0.1",
+    "emoji-datasource-google": "5.0.1"
   }
 }
