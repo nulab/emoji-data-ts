@@ -1,6 +1,6 @@
 {
   "name": "emoji-data-ts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "keywords": [],
   "main": "dist/emoji-data-ts.umd.js",
@@ -25,10 +25,6 @@
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
     "emoji-build": "ts-node tools/emoji-script",
-    "semantic-release": "semantic-release",
-    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged",
-    "travis-deploy-once": "travis-deploy-once",
     "deploy-example": "gh-pages build -d example/build/"
   },
   "lint-staged": {
