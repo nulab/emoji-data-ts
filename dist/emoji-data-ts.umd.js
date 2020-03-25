@@ -40718,7 +40718,7 @@
       '\uD83C\uDFFF': 'skin-tone-6'
   };
   var categoriesData = [
-      'Smileys & People',
+      'People & Body',
       'Animals & Nature',
       'Food & Drink',
       'Activities',
