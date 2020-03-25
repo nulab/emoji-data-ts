@@ -8,7 +8,7 @@ export interface Emoji {
   short_names: string[]
   sheet_x: number
   sheet_y: number
-  skin_variations?: { [key: string]: Emoji }
+  skin_variations?: { [key: string]: any }
   category: string
   char: string
   image_url: string
@@ -215,7 +215,9 @@ export class EmojiData {
     const multiplyY = 100 / (sheetRows - 1)
 
     if (actual.skin_variations != null && variation != null) {
-      const a = actual.skin_variations[variation.unified]
+      const a =
+        actual.skin_variations[variation.unified] ||
+        actual.skin_variations[`${variation.unified}-${variation.unified}`]
       return {
         x: a.sheet_x * multiplyX,
         y: a.sheet_y * multiplyY,
