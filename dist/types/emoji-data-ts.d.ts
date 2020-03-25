@@ -20,8 +20,8 @@ export interface EmojiImage {
     imageUrl: string;
 }
 export declare const categoriesData: string[];
-export declare const sheetColumns = 52;
-export declare const sheetRows = 52;
+export declare const sheetColumns = 57;
+export declare const sheetRows = 57;
 export declare class EmojiData {
     private emojiValMap;
     private emojiUnifiedValMap;

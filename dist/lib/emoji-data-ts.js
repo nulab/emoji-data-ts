@@ -23,8 +23,8 @@ exports.categoriesData = [
     'Symbols',
     'Flags'
 ];
-exports.sheetColumns = 52;
-exports.sheetRows = 52;
+exports.sheetColumns = 57;
+exports.sheetRows = 57;
 var EmojiData = /** @class */ (function () {
     function EmojiData() {
         var _this = this;

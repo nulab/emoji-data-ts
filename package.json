@@ -25,7 +25,7 @@
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
     "emoji-build": "ts-node tools/emoji-script",
-    "deploy-example": "gh-pages build -d example/build/"
+    "deploy-example": "cd example && yarn && yarn build && cd ../ && gh-pages build -d example/build/"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [

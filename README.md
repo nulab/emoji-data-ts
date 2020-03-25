@@ -24,8 +24,16 @@ You should add the dist files which you make it build in local.
 yarn build
 ```
 
+How to release 
+
 ```ts
 git tag -a vx.x.x
 git push origin tags/vx.x.x
 npm publish ./
+```
+
+How to update example
+
+```ts
+yarn deploy-example
 ```

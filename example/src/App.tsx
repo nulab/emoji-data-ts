@@ -72,7 +72,7 @@ function EmojiImg({emoji}: {emoji: EmojiImage}) {
   return (<span
     style={{
       backgroundImage:
-        'url(https://unpkg.com/emoji-datasource-apple@4.1.0/img/apple/sheets-256/64.png)',
+        'url(https://unpkg.com/emoji-datasource-apple@5.0.1/img/apple/sheets-256/64.png)',
       backgroundPosition: `${emoji.x}% ${emoji.y}%`,
       backgroundSize: `${emoji.sheetSizeX}% ${emoji.sheetSizeY}%`,
       display: 'inline-block',

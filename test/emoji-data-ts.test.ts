@@ -1,4 +1,4 @@
-import { EmojiData } from '../src/emoji-data-ts'
+import { EmojiData, Emoji } from '../src/emoji-data-ts'
 import e from '../src/emoji.json'
 
 describe('Dummy test', () => {
@@ -18,30 +18,30 @@ describe('Dummy test', () => {
   it('getImageDataWithColon returns correct data', () => {
     expect(normalEmoji.getImageDataWithColon(':smile:')).toEqual({
       imageUrl: '1f604.png',
-      sheetSizeX: 5200,
-      sheetSizeY: 5200,
-      x: 58.8235294117647,
-      y: 76.47058823529412
+      sheetSizeX: 5700,
+      sheetSizeY: 5700,
+      x: 53.57142857142858,
+      y: 69.64285714285715
     })
   })
 
   it('getImageData returns correct data', () => {
     expect(normalEmoji.getImageData('smile')).toEqual({
       imageUrl: '1f604.png',
-      sheetSizeX: 5200,
-      sheetSizeY: 5200,
-      x: 58.8235294117647,
-      y: 76.47058823529412
+      sheetSizeX: 5700,
+      sheetSizeY: 5700,
+      x: 53.57142857142858,
+      y: 69.64285714285715
     })
   })
 
   it('getImageData returns correct data with skintone', () => {
     expect(normalEmoji.getImageData('spock-hand::skin-tone-4')).toEqual({
       imageUrl: '1f596-1f3fd.png',
-      sheetSizeX: 5200,
-      sheetSizeY: 5200,
-      x: 58.8235294117647,
-      y: 11.76470588235294
+      sheetSizeX: 5700,
+      sheetSizeY: 5700,
+      x: 53.57142857142858,
+      y: 10.714285714285715
     })
   })
 
@@ -449,9 +449,9 @@ describe('Dummy test', () => {
       char: '🧑‍🤝‍🧑',
       image_url: '1f9d1-200d-1f91d-200d-1f9d1.png'
     }
-    expect(normalEmoji.getSkinInfo(emoji, 'skin-tone-6')).toEqual({
-      sheet_x: 92.15686274509804,
-      sheet_y: 11.76470588235294,
+    expect(normalEmoji.getSkinInfo((emoji as never) as Emoji, 'skin-tone-6')).toEqual({
+      sheet_x: 83.92857142857143,
+      sheet_y: 10.714285714285715,
       unified: '1F9D1-200D-1F91D-200D-1F9D1',
       short_name: 'skin-tone-6',
       image_url: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3ff.png'
@@ -463,8 +463,8 @@ describe('Dummy test', () => {
     if (emoji != null) {
       expect(normalEmoji.getSkinInfo(emoji, 'skin-tone-5')).toEqual({
         image_url: '1f604.png',
-        sheet_x: 58.8235294117647,
-        sheet_y: 76.47058823529412,
+        sheet_x: 53.57142857142858,
+        sheet_y: 69.64285714285715,
         short_name: 'skin-tone-5',
         unified: '1F604'
       })

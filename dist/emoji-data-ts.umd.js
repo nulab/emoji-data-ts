@@ -40727,8 +40727,8 @@
       'Symbols',
       'Flags'
   ];
-  var sheetColumns = 52;
-  var sheetRows = 52;
+  var sheetColumns = 57;
+  var sheetRows = 57;
   var EmojiData = /** @class */ (function () {
       function EmojiData() {
           var _this = this;
