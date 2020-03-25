@@ -90,8 +90,6 @@
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
     "cz-conventional-changelog": "^2.1.0",
-    "emoji-datasource-apple": "4.1.0",
-    "emoji-datasource-google": "4.1.0",
     "gh-pages": "^2.1.1",
     "husky": "^1.0.1",
     "jest": "^23.6.0",
@@ -118,5 +116,9 @@
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.15.0",
     "typescript": "3.1"
+  },
+  "dependencies": {
+    "emoji-datasource-apple": "5.0.1",
+    "emoji-datasource-google": "5.0.1"
   }
 }

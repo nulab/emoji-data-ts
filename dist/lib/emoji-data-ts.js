@@ -14,7 +14,7 @@ var skinToneUnicodeMap = {
     '\uD83C\uDFFF': 'skin-tone-6'
 };
 exports.categoriesData = [
-    'Smileys & People',
+    'People & Body',
     'Animals & Nature',
     'Food & Drink',
     'Activities',
@@ -58,7 +58,8 @@ var EmojiData = /** @class */ (function () {
             var multiplyX = 100 / (exports.sheetColumns - 1);
             var multiplyY = 100 / (exports.sheetRows - 1);
             if (actual.skin_variations != null && variation != null) {
-                var a = actual.skin_variations[variation.unified];
+                var a = actual.skin_variations[variation.unified] ||
+                    actual.skin_variations[variation.unified + "-" + variation.unified];
                 return {
                     x: a.sheet_x * multiplyX,
                     y: a.sheet_y * multiplyY,
