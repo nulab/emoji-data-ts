@@ -5,7 +5,7 @@ export interface Emoji {
     sheet_x: number;
     sheet_y: number;
     skin_variations?: {
-        [key: string]: Emoji;
+        [key: string]: any;
     };
     category: string;
     char: string;
