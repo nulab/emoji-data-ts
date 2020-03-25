@@ -8,7 +8,7 @@ export interface Emoji {
   short_names: string[]
   sheet_x: number
   sheet_y: number
-  skin_variations?: { [key: string]: any }
+  skin_variations?: { [key: string]: Emoji }
   category: string
   char: string
   image_url: string
