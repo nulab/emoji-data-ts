@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var emoji_json_1 = __importDefault(require("./emoji.json"));
-var currentVersion = '4.1.0';
+var currentVersion = '5.0.1';
 var emojis = emoji_json_1.default;
 var skinToneUnicodeMap = {
     '\uD83C\uDFFB': 'skin-tone-2',

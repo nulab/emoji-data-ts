@@ -40708,7 +40708,7 @@
     }
   ];
 
-  var currentVersion = '4.1.0';
+  var currentVersion = '5.0.1';
   var emojis = e;
   var skinToneUnicodeMap = {
       '\uD83C\uDFFB': 'skin-tone-2',

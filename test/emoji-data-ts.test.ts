@@ -7,8 +7,8 @@ describe('Dummy test', () => {
     expect(new EmojiData()).toBeInstanceOf(EmojiData)
   })
 
-  it('currentVersion returns 4.1.0', () => {
-    expect(normalEmoji.currentVersion).toEqual('4.1.0')
+  it('currentVersion returns 5.0.1', () => {
+    expect(normalEmoji.currentVersion).toEqual('5.0.1')
   })
 
   it('getVariationEmojis returns emojis with skintone array', () => {
