@@ -1,5 +1,5 @@
 import e from './emoji.json'
-const currentVersion = '4.1.0'
+const currentVersion = '5.0.1'
 const emojis: Emoji[] = e
 
 export interface Emoji {
