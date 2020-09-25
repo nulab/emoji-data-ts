@@ -32,6 +32,7 @@ const skinToneUnicodeMap: { [key: string]: string } = {
 }
 
 export const categoriesData = [
+  'Smileys & Emotion',
   'People & Body',
   'Animals & Nature',
   'Food & Drink',
