@@ -40718,6 +40718,7 @@
       '\uD83C\uDFFF': 'skin-tone-6'
   };
   var categoriesData = [
+      'Smileys & Emotion',
       'People & Body',
       'Animals & Nature',
       'Food & Drink',
