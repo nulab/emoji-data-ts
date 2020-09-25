@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "description": "",
   "keywords": [],
+  "homepage": "https://github.com/nulab/emoji-data-ts",
   "main": "dist/emoji-data-ts.umd.js",
   "module": "dist/emoji-data-ts.es5.js",
   "typings": "dist/types/emoji-data-ts.d.ts",
@@ -12,7 +13,7 @@
   "author": "Teruo Kunihiro <teruo.kunhiro@nulab-inc.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/nulab/emoji-data-ts"
   },
   "license": "MIT",
   "engines": {
