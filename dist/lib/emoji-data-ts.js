@@ -14,6 +14,7 @@ var skinToneUnicodeMap = {
     '\uD83C\uDFFF': 'skin-tone-6'
 };
 exports.categoriesData = [
+    'Smileys & Emotion',
     'People & Body',
     'Animals & Nature',
     'Food & Drink',
