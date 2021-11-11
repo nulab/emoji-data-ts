@@ -43,8 +43,8 @@ export const categoriesData = [
   'Flags'
 ]
 
-export const sheetColumns = 57
-export const sheetRows = 57
+export const sheetColumns = 60
+export const sheetRows = 54
 
 export class EmojiData {
   private emojiValMap: Map<string, Emoji> = new Map()

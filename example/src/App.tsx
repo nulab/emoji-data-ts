@@ -32,7 +32,7 @@ class App extends React.Component<{}, { filteredEmojiData: Emoji[] }> {
             if(emojiImage == null) {
               return <span />
             }
-            return <EmojiImg key={i} emoji={emojiImage}/>
+            return <EmojiImg key={i} emoji={emojiImage} tooltip={a.short_name}/>
           })}
         </div>
         <div className="emoji-picker">
@@ -48,7 +48,7 @@ class App extends React.Component<{}, { filteredEmojiData: Emoji[] }> {
                       if (position == null) {
                         return <span />
                       }
-                      return <EmojiImg key={i} emoji={position}/>
+                      return <EmojiImg key={i} emoji={position} tooltip={a.short_name}/>
                     })
                   }
                   return <span />
@@ -68,17 +68,18 @@ class App extends React.Component<{}, { filteredEmojiData: Emoji[] }> {
   }
 }
 
-function EmojiImg({emoji}: {emoji: EmojiImage}) {
+function EmojiImg({emoji, tooltip}: {emoji: EmojiImage, tooltip:string}) {
   return (<span
     style={{
       backgroundImage:
-        'url(https://unpkg.com/emoji-datasource-apple@5.0.1/img/apple/sheets-256/64.png)',
+        'url(https://unpkg.com/emoji-datasource-apple@7.0.2/img/apple/sheets-256/64.png)',
       backgroundPosition: `${emoji.x}% ${emoji.y}%`,
       backgroundSize: `${emoji.sheetSizeX}% ${emoji.sheetSizeY}%`,
       display: 'inline-block',
       height: '24px',
-      width: '24px'
+      width: '24px',
     }}
+    title={tooltip}
   />)
 }
 
