@@ -16,24 +16,26 @@ emoji.getImageData("smile")
 
 Example is [here](https://nulab.github.io/emoji-data-ts/)
 
-# Upgrade npm module
+# How to upgrade emoji data
 
-You should add the dist files which you make it build in local.
+1. Upgrade package.json below part which is defined current emoji-datasource version
 
-```ts
-yarn build
+```
+"dependencies": {
+"emoji-datasource-apple": "7.0.2",
+"emoji-datasource-google": "7.0.2"
+}
 ```
 
-How to release 
-
+2. Run `yarn emoji-build` which generates a new emoji.json used in emoji-data-ts
+3. Change currentVersion in emoji-data-ts.ts corresponding to the emoji-datasource's version
 ```ts
-git tag -a vx.x.x
-git push origin tags/vx.x.x
-npm publish ./
+const currentVersion = '7.0.2'
 ```
 
-How to update example
+4. Adjust sheetColumns and sheetRows to fit the emoji-datasource's image
 
-```ts
-yarn deploy-example
+```
+export const sheetColumns = 60
+export const sheetRows = 60
 ```
