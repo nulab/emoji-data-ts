@@ -27,7 +27,7 @@ Example is [here](https://nulab.github.io/emoji-data-ts/)
 }
 ```
 
-2. Run `yarn emoji-build` which generates a new emoji.json used in emoji-data-ts
+2. Run `npm run emoji-build` which generates a new emoji.json used in emoji-data-ts
 3. Change currentVersion in emoji-data-ts.ts corresponding to the emoji-datasource's version
 ```ts
 const currentVersion = '7.0.2'
