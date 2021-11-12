@@ -12,7 +12,7 @@ env:
   node_version: 14
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,10 +21,9 @@ jobs:
           node-version: ${{ env.node_version }}
       - run: npm ci
       - run: npm test
-      - run: npm run build
   version_and_release:
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
     steps:
     - uses: actions/checkout@v2.3.2
       with:
@@ -35,8 +34,9 @@ jobs:
         node-version: ${{ env.node_version }}
         registry-url: 'https://registry.npmjs.org'
     - run: npm ci
+    - run: npm run build
     - name: Version and publish to npm
-      uses: bcomnes/npm-bump@v1.0.4
+      uses: bcomnes/npm-bump@v2.0.2
       with:
         git_email: teruo.kunihiro@nulab.com
         git_username: ${{ github.actor }}
