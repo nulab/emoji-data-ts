@@ -1,14 +1,15 @@
-import { EmojiData, Emoji } from '../src/emoji-data-ts'
+import { EmojiData, Emoji, sheetColumns, sheetRows } from '../src/emoji-data-ts'
 import e from '../src/emoji.json'
+import {multiplyPos} from './util'
 
-describe('Dummy test', () => {
+describe('emoji-data-ts test', () => {
   const normalEmoji = new EmojiData()
   it('EmojiData is instantiable', () => {
     expect(new EmojiData()).toBeInstanceOf(EmojiData)
   })
 
-  it('currentVersion returns 5.0.1', () => {
-    expect(normalEmoji.currentVersion).toEqual('5.0.1')
+  it('currentVersion returns 7.0.2', () => {
+    expect(normalEmoji.currentVersion).toEqual('7.0.2')
   })
 
   it('getVariationEmojis returns emojis with skintone array', () => {
@@ -16,32 +17,51 @@ describe('Dummy test', () => {
   })
 
   it('getImageDataWithColon returns correct data', () => {
-    expect(normalEmoji.getImageDataWithColon(':smile:')).toEqual({
+    const shortName = "smile"
+    const smileData = normalEmoji.getEmojiByName(shortName)
+    if(smileData == null){
+      throw new Error("smile emoji not found")
+    }
+    expect(normalEmoji.getImageDataWithColon(`:${shortName}:`)).toEqual({
       imageUrl: '1f604.png',
-      sheetSizeX: 5700,
-      sheetSizeY: 5700,
-      x: 53.57142857142858,
-      y: 69.64285714285715
+      sheetSizeX: sheetColumns * 100,
+      sheetSizeY: sheetRows * 100,
+      ...multiplyPos(smileData.sheet_x, smileData.sheet_y, sheetColumns,sheetRows)
     })
   })
 
   it('getImageData returns correct data', () => {
-    expect(normalEmoji.getImageData('smile')).toEqual({
+    const shortName = "smile"
+    const smileData = normalEmoji.getEmojiByName(shortName)
+    if(smileData == null){
+      throw new Error("smile emoji not found")
+    }
+    expect(normalEmoji.getImageData(shortName)).toEqual({
       imageUrl: '1f604.png',
-      sheetSizeX: 5700,
-      sheetSizeY: 5700,
-      x: 53.57142857142858,
-      y: 69.64285714285715
+      sheetSizeX: sheetColumns * 100,
+      sheetSizeY: sheetRows * 100,
+      ...multiplyPos(smileData.sheet_x, smileData.sheet_y, sheetColumns,sheetRows)
     })
   })
 
   it('getImageData returns correct data with skintone', () => {
-    expect(normalEmoji.getImageData('spock-hand::skin-tone-4')).toEqual({
+    const shortName = "spock-hand"
+    const skinTone = "skin-tone-4"
+    const spockHand = normalEmoji.getEmojiByName(shortName)
+    const skin4 = normalEmoji.getEmojiByName(skinTone)
+
+    if(spockHand == null || skin4 == null || spockHand.skin_variations == null){
+      throw new Error("emoji not found")
+    }
+    const spockHandSkin4 = spockHand.skin_variations[skin4.unified]
+    if(spockHandSkin4 == null){
+      throw new Error("emoji with skintone not found")
+    }
+    expect(normalEmoji.getImageData(`${shortName}::${skinTone}`)).toEqual({
       imageUrl: '1f596-1f3fd.png',
-      sheetSizeX: 5700,
-      sheetSizeY: 5700,
-      x: 53.57142857142858,
-      y: 10.714285714285715
+      sheetSizeX: sheetColumns * 100,
+      sheetSizeY: sheetRows * 100,
+      ...multiplyPos(spockHandSkin4.sheet_x, spockHandSkin4.sheet_y, sheetColumns,sheetRows)
     })
   })
 
@@ -61,16 +81,7 @@ describe('Dummy test', () => {
   it('searchEmoji returns correct emoji list', () => {
     const searchWord = 's'
     expect(normalEmoji.searchEmoji(searchWord, 10).map(a => a.short_name)).toEqual([
-      'sa',
-      'ski',
-      'sob',
-      'six',
-      'sos',
-      'sari',
-      'soon',
-      'sled',
-      'stew',
-      'salt'
+      "sa", "sob", "ski", "six", "sos", "swan", "seal", "stew", "salt", "sake"
     ])
   })
 
@@ -99,8 +110,8 @@ describe('Dummy test', () => {
     if (emoji != null) {
       expect(normalEmoji.getSkinInfo(emoji)).toEqual({
         image_url: '1f604.png',
-        sheet_x: 30,
-        sheet_y: 39,
+        sheet_x: 32,
+        sheet_y: 56,
         short_name: 'smile',
         unified: '1F604'
       })
@@ -122,323 +133,177 @@ describe('Dummy test', () => {
       skin_variations: {
         '1F3FB-1F3FB': {
           unified: '1F9D1-1F3FB-200D-1F91D-200D-1F9D1-1F3FB',
-          non_qualified: null,
           image: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3fb.png',
           sheet_x: 46,
           sheet_y: 39,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3fb.png'
         },
         '1F3FB-1F3FC': {
           unified: '1F9D1-1F3FB-200D-1F91D-200D-1F9D1-1F3FC',
-          non_qualified: null,
           image: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3fc.png',
           sheet_x: 46,
           sheet_y: 40,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3fc.png'
         },
         '1F3FB-1F3FD': {
           unified: '1F9D1-1F3FB-200D-1F91D-200D-1F9D1-1F3FD',
-          non_qualified: null,
           image: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3fd.png',
           sheet_x: 46,
           sheet_y: 41,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3fd.png'
         },
         '1F3FB-1F3FE': {
           unified: '1F9D1-1F3FB-200D-1F91D-200D-1F9D1-1F3FE',
-          non_qualified: null,
           image: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3fe.png',
           sheet_x: 46,
           sheet_y: 42,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3fe.png'
         },
         '1F3FB-1F3FF': {
           unified: '1F9D1-1F3FB-200D-1F91D-200D-1F9D1-1F3FF',
-          non_qualified: null,
           image: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3ff.png',
           sheet_x: 46,
           sheet_y: 43,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fb-200d-1f91d-200d-1f9d1-1f3ff.png'
         },
         '1F3FC-1F3FB': {
           unified: '1F9D1-1F3FC-200D-1F91D-200D-1F9D1-1F3FB',
-          non_qualified: null,
           image: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3fb.png',
           sheet_x: 46,
           sheet_y: 44,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3fb.png'
         },
         '1F3FC-1F3FC': {
           unified: '1F9D1-1F3FC-200D-1F91D-200D-1F9D1-1F3FC',
-          non_qualified: null,
           image: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3fc.png',
           sheet_x: 46,
           sheet_y: 45,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3fc.png'
         },
         '1F3FC-1F3FD': {
           unified: '1F9D1-1F3FC-200D-1F91D-200D-1F9D1-1F3FD',
-          non_qualified: null,
           image: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3fd.png',
           sheet_x: 46,
           sheet_y: 46,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3fd.png'
         },
         '1F3FC-1F3FE': {
           unified: '1F9D1-1F3FC-200D-1F91D-200D-1F9D1-1F3FE',
-          non_qualified: null,
           image: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3fe.png',
           sheet_x: 46,
           sheet_y: 47,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3fe.png'
         },
         '1F3FC-1F3FF': {
           unified: '1F9D1-1F3FC-200D-1F91D-200D-1F9D1-1F3FF',
-          non_qualified: null,
           image: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3ff.png',
           sheet_x: 46,
           sheet_y: 48,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fc-200d-1f91d-200d-1f9d1-1f3ff.png'
         },
         '1F3FD-1F3FB': {
           unified: '1F9D1-1F3FD-200D-1F91D-200D-1F9D1-1F3FB',
-          non_qualified: null,
           image: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3fb.png',
           sheet_x: 46,
           sheet_y: 49,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3fb.png'
         },
         '1F3FD-1F3FC': {
           unified: '1F9D1-1F3FD-200D-1F91D-200D-1F9D1-1F3FC',
-          non_qualified: null,
           image: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3fc.png',
           sheet_x: 46,
           sheet_y: 50,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3fc.png'
         },
         '1F3FD-1F3FD': {
           unified: '1F9D1-1F3FD-200D-1F91D-200D-1F9D1-1F3FD',
-          non_qualified: null,
           image: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3fd.png',
           sheet_x: 46,
           sheet_y: 51,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3fd.png'
         },
         '1F3FD-1F3FE': {
           unified: '1F9D1-1F3FD-200D-1F91D-200D-1F9D1-1F3FE',
-          non_qualified: null,
           image: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3fe.png',
           sheet_x: 46,
           sheet_y: 52,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3fe.png'
         },
         '1F3FD-1F3FF': {
           unified: '1F9D1-1F3FD-200D-1F91D-200D-1F9D1-1F3FF',
-          non_qualified: null,
           image: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3ff.png',
           sheet_x: 46,
           sheet_y: 53,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fd-200d-1f91d-200d-1f9d1-1f3ff.png'
         },
         '1F3FE-1F3FB': {
           unified: '1F9D1-1F3FE-200D-1F91D-200D-1F9D1-1F3FB',
-          non_qualified: null,
           image: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3fb.png',
           sheet_x: 46,
           sheet_y: 54,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3fb.png'
         },
         '1F3FE-1F3FC': {
           unified: '1F9D1-1F3FE-200D-1F91D-200D-1F9D1-1F3FC',
-          non_qualified: null,
           image: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3fc.png',
           sheet_x: 46,
           sheet_y: 55,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3fc.png'
         },
         '1F3FE-1F3FD': {
           unified: '1F9D1-1F3FE-200D-1F91D-200D-1F9D1-1F3FD',
-          non_qualified: null,
           image: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3fd.png',
           sheet_x: 46,
           sheet_y: 56,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3fd.png'
         },
         '1F3FE-1F3FE': {
           unified: '1F9D1-1F3FE-200D-1F91D-200D-1F9D1-1F3FE',
-          non_qualified: null,
           image: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3fe.png',
           sheet_x: 47,
           sheet_y: 0,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3fe.png'
         },
         '1F3FE-1F3FF': {
           unified: '1F9D1-1F3FE-200D-1F91D-200D-1F9D1-1F3FF',
-          non_qualified: null,
           image: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3ff.png',
           sheet_x: 47,
           sheet_y: 1,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: false,
-          has_img_twitter: true,
-          has_img_facebook: false,
           image_url: '1f9d1-1f3fe-200d-1f91d-200d-1f9d1-1f3ff.png'
         },
         '1F3FF-1F3FB': {
           unified: '1F9D1-1F3FF-200D-1F91D-200D-1F9D1-1F3FB',
-          non_qualified: null,
           image: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3fb.png',
           sheet_x: 47,
           sheet_y: 2,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3fb.png'
         },
         '1F3FF-1F3FC': {
           unified: '1F9D1-1F3FF-200D-1F91D-200D-1F9D1-1F3FC',
-          non_qualified: null,
           image: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3fc.png',
           sheet_x: 47,
           sheet_y: 3,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3fc.png'
         },
         '1F3FF-1F3FD': {
           unified: '1F9D1-1F3FF-200D-1F91D-200D-1F9D1-1F3FD',
-          non_qualified: null,
           image: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3fd.png',
           sheet_x: 47,
           sheet_y: 4,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3fd.png'
         },
         '1F3FF-1F3FE': {
           unified: '1F9D1-1F3FF-200D-1F91D-200D-1F9D1-1F3FE',
-          non_qualified: null,
           image: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3fe.png',
           sheet_x: 47,
           sheet_y: 5,
-          added_in: '12.1',
-          has_img_apple: true,
-          has_img_google: true,
-          has_img_twitter: true,
-          has_img_facebook: true,
           image_url: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3fe.png'
         },
         '1F3FF-1F3FF': {
           unified: '1F9D1-1F3FF-200D-1F91D-200D-1F9D1-1F3FF',
-          non_qualified: null,
           image: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3ff.png',
           sheet_x: 47,
           sheet_y: 6,
-          added_in: '12.1',
           has_img_apple: true,
           has_img_google: true,
           has_img_twitter: true,
@@ -449,25 +314,32 @@ describe('Dummy test', () => {
       char: '🧑‍🤝‍🧑',
       image_url: '1f9d1-200d-1f91d-200d-1f9d1.png'
     }
-    expect(normalEmoji.getSkinInfo((emoji as never) as Emoji, 'skin-tone-6')).toEqual({
-      sheet_x: 83.92857142857143,
-      sheet_y: 10.714285714285715,
-      unified: '1F9D1-200D-1F91D-200D-1F9D1',
-      short_name: 'skin-tone-6',
-      image_url: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3ff.png'
-    })
+    const skinTone = 'skin-tone-6'
+    const skin6 = normalEmoji.getEmojiByName(skinTone)
+
+    if(skin6 == null || emoji.skin_variations == null) {
+      throw new Error('skin6 is null')
+    }
+
+    expect(normalEmoji.getSkinInfo((emoji as never) as Emoji, skinTone)).toEqual(
+      expect.objectContaining({
+        unified: '1F9D1-200D-1F91D-200D-1F9D1',
+        short_name: 'skin-tone-6',
+        image_url: '1f9d1-1f3ff-200d-1f91d-200d-1f9d1-1f3ff.png'
+      })
+    )
   })
 
   it('getSkinInfo returns an emoji object with skintone', () => {
     const emoji = normalEmoji.getEmojiByName('smile')
     if (emoji != null) {
-      expect(normalEmoji.getSkinInfo(emoji, 'skin-tone-5')).toEqual({
+      expect(normalEmoji.getSkinInfo(emoji, 'skin-tone-5')).toEqual(
+        expect.objectContaining({
         image_url: '1f604.png',
-        sheet_x: 53.57142857142858,
-        sheet_y: 69.64285714285715,
         short_name: 'skin-tone-5',
         unified: '1F604'
       })
+      )
       return
     }
     fail()

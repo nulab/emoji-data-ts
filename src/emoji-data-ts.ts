@@ -1,5 +1,5 @@
 import e from './emoji.json'
-const currentVersion = '5.0.1'
+const currentVersion = '7.0.2'
 const emojis: Emoji[] = e
 
 export interface Emoji {
@@ -44,7 +44,7 @@ export const categoriesData = [
 ]
 
 export const sheetColumns = 60
-export const sheetRows = 54
+export const sheetRows = 60
 
 export class EmojiData {
   private emojiValMap: Map<string, Emoji> = new Map()
