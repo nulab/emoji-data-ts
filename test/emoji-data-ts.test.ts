@@ -1,6 +1,6 @@
 import { EmojiData, Emoji, sheetColumns, sheetRows } from '../src/emoji-data-ts'
 import e from '../src/emoji.json'
-import {multiplyPos} from './util'
+import { multiplyPos } from './util'
 
 describe('emoji-data-ts test', () => {
   const normalEmoji = new EmojiData()
@@ -17,51 +17,51 @@ describe('emoji-data-ts test', () => {
   })
 
   it('getImageDataWithColon returns correct data', () => {
-    const shortName = "smile"
+    const shortName = 'smile'
     const smileData = normalEmoji.getEmojiByName(shortName)
-    if(smileData == null){
-      throw new Error("smile emoji not found")
+    if (smileData == null) {
+      throw new Error('smile emoji not found')
     }
     expect(normalEmoji.getImageDataWithColon(`:${shortName}:`)).toEqual({
       imageUrl: '1f604.png',
       sheetSizeX: sheetColumns * 100,
       sheetSizeY: sheetRows * 100,
-      ...multiplyPos(smileData.sheet_x, smileData.sheet_y, sheetColumns,sheetRows)
+      ...multiplyPos(smileData.sheet_x, smileData.sheet_y, sheetColumns, sheetRows)
     })
   })
 
   it('getImageData returns correct data', () => {
-    const shortName = "smile"
+    const shortName = 'smile'
     const smileData = normalEmoji.getEmojiByName(shortName)
-    if(smileData == null){
-      throw new Error("smile emoji not found")
+    if (smileData == null) {
+      throw new Error('smile emoji not found')
     }
     expect(normalEmoji.getImageData(shortName)).toEqual({
       imageUrl: '1f604.png',
       sheetSizeX: sheetColumns * 100,
       sheetSizeY: sheetRows * 100,
-      ...multiplyPos(smileData.sheet_x, smileData.sheet_y, sheetColumns,sheetRows)
+      ...multiplyPos(smileData.sheet_x, smileData.sheet_y, sheetColumns, sheetRows)
     })
   })
 
   it('getImageData returns correct data with skintone', () => {
-    const shortName = "spock-hand"
-    const skinTone = "skin-tone-4"
+    const shortName = 'spock-hand'
+    const skinTone = 'skin-tone-4'
     const spockHand = normalEmoji.getEmojiByName(shortName)
     const skin4 = normalEmoji.getEmojiByName(skinTone)
 
-    if(spockHand == null || skin4 == null || spockHand.skin_variations == null){
-      throw new Error("emoji not found")
+    if (spockHand == null || skin4 == null || spockHand.skin_variations == null) {
+      throw new Error('emoji not found')
     }
     const spockHandSkin4 = spockHand.skin_variations[skin4.unified]
-    if(spockHandSkin4 == null){
-      throw new Error("emoji with skintone not found")
+    if (spockHandSkin4 == null) {
+      throw new Error('emoji with skintone not found')
     }
     expect(normalEmoji.getImageData(`${shortName}::${skinTone}`)).toEqual({
       imageUrl: '1f596-1f3fd.png',
       sheetSizeX: sheetColumns * 100,
       sheetSizeY: sheetRows * 100,
-      ...multiplyPos(spockHandSkin4.sheet_x, spockHandSkin4.sheet_y, sheetColumns,sheetRows)
+      ...multiplyPos(spockHandSkin4.sheet_x, spockHandSkin4.sheet_y, sheetColumns, sheetRows)
     })
   })
 
@@ -81,7 +81,16 @@ describe('emoji-data-ts test', () => {
   it('searchEmoji returns correct emoji list', () => {
     const searchWord = 's'
     expect(normalEmoji.searchEmoji(searchWord, 10).map(a => a.short_name)).toEqual([
-      "sa", "sob", "ski", "six", "sos", "swan", "seal", "stew", "salt", "sake"
+      'sa',
+      'sob',
+      'ski',
+      'six',
+      'sos',
+      'swan',
+      'seal',
+      'stew',
+      'salt',
+      'sake'
     ])
   })
 
@@ -317,7 +326,7 @@ describe('emoji-data-ts test', () => {
     const skinTone = 'skin-tone-6'
     const skin6 = normalEmoji.getEmojiByName(skinTone)
 
-    if(skin6 == null || emoji.skin_variations == null) {
+    if (skin6 == null || emoji.skin_variations == null) {
       throw new Error('skin6 is null')
     }
 
@@ -335,10 +344,10 @@ describe('emoji-data-ts test', () => {
     if (emoji != null) {
       expect(normalEmoji.getSkinInfo(emoji, 'skin-tone-5')).toEqual(
         expect.objectContaining({
-        image_url: '1f604.png',
-        short_name: 'skin-tone-5',
-        unified: '1F604'
-      })
+          image_url: '1f604.png',
+          short_name: 'skin-tone-5',
+          unified: '1F604'
+        })
       )
       return
     }

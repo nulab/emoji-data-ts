@@ -19,7 +19,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prettier": "prettier --write {src,test}/**/*.ts",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts ",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest --coverage",
