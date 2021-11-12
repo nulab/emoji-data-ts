@@ -12,3 +12,4 @@ docs
 
 example/build
 .env
+dist
