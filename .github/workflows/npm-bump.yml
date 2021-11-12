@@ -21,6 +21,7 @@ jobs:
           node-version: ${{ env.node_version }}
       - run: npm ci
       - run: npm test
+      - run: npm run build
   version_and_release:
     runs-on: ubuntu-latest
     needs: build
