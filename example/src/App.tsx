@@ -1,16 +1,24 @@
 import { categoriesData, Emoji, EmojiData, EmojiImage } from 'emoji-data-ts'
 import * as React from 'react'
 
-class App extends React.Component<{}, { filteredEmojiData: Emoji[] }> {
-  private emoji: EmojiData ;
+enum Vendor {
+  Apple = "apple",
+  Google = "google",
+  Twitter = "twitter",
+  Facebook = "facebook"
+};
+
+class App extends React.Component<{}, { filteredEmojiData: Emoji[], vendor: Vendor }> {
+  private emoji: EmojiData;
   constructor(props: Readonly<{}>) {
     super(props);
     this.state = {
-      filteredEmojiData: []
+      filteredEmojiData: [],
+      vendor: Vendor.Apple
     }
     this.emoji = new EmojiData()
   }
-  public componentDidMount(){
+  public componentDidMount() {
     this.setState({
       filteredEmojiData: []
     })
@@ -20,19 +28,32 @@ class App extends React.Component<{}, { filteredEmojiData: Emoji[] }> {
   public render() {
     return (
       <div className="App">
-        Filter
+        <div>
+          Emoji version {this.emoji.currentVersion}
+        </div>
+        <div>
+          Vendor
+          <select onChange={this.onChangeVendor}>
+            {
+              Object.keys(Vendor).map(key => <option value={Vendor[key]} selected={this.state.vendor === Vendor[key]} key={key}>{key}</option>)
+            }
+          </select>
+        </div>
+        <div>
+          Filter
         <input type="text" onChange={
-          // tslint:disable-next-line:jsx-no-lambda
-          (e) => this.onChangeFilter(e)
-        } />
+            // tslint:disable-next-line:jsx-no-lambda
+            (e) => this.onChangeFilter(e)
+          } />
+        </div>
         <div>
           {this.state.filteredEmojiData.map((a, i) => {
             const emojiImage = this.emoji.getImageData(a.short_name)
 
-            if(emojiImage == null) {
+            if (emojiImage == null) {
               return <span />
             }
-            return <EmojiImg key={i} emoji={emojiImage} tooltip={a.short_name} emojiVersion={this.emoji.currentVersion}/>
+            return <EmojiImg key={i} emoji={emojiImage} tooltip={a.short_name} emojiVersion={this.emoji.currentVersion} vendor={this.state.vendor} />
           })}
         </div>
         <div className="emoji-picker">
@@ -48,7 +69,7 @@ class App extends React.Component<{}, { filteredEmojiData: Emoji[] }> {
                       if (position == null) {
                         return <span />
                       }
-                      return <EmojiImg key={i} emoji={position} tooltip={a.short_name} emojiVersion={this.emoji.currentVersion}/>
+                      return <EmojiImg key={i} emoji={position} tooltip={a.short_name} emojiVersion={this.emoji.currentVersion} vendor={this.state.vendor} />
                     })
                   }
                   return <span />
@@ -66,13 +87,17 @@ class App extends React.Component<{}, { filteredEmojiData: Emoji[] }> {
       filteredEmojiData: emojis
     })
   }
+
+  private onChangeVendor = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ vendor: e.target.value as Vendor });
+  }
 }
 
-function EmojiImg({emoji, tooltip, emojiVersion}: {emoji: EmojiImage, tooltip:string, emojiVersion: string}) {
+function EmojiImg({ emoji, tooltip, emojiVersion, vendor }: { emoji: EmojiImage, tooltip: string, vendor: Vendor, emojiVersion: string }) {
   return (<span
     style={{
       backgroundImage:
-        `url(https://unpkg.com/emoji-datasource-apple@${emojiVersion}/img/apple/sheets-256/64.png)`,
+        `url(https://unpkg.com/emoji-datasource-${vendor}@${emojiVersion}/img/${vendor}/sheets-256/64.png)`,
       backgroundPosition: `${emoji.x}% ${emoji.y}%`,
       backgroundSize: `${emoji.sheetSizeX}% ${emoji.sheetSizeY}%`,
       display: 'inline-block',
