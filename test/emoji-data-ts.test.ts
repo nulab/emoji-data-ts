@@ -8,8 +8,8 @@ describe('emoji-data-ts test', () => {
     expect(new EmojiData()).toBeInstanceOf(EmojiData)
   })
 
-  it('currentVersion returns 7.0.2', () => {
-    expect(normalEmoji.currentVersion).toEqual('7.0.2')
+  it('currentVersion returns 14.0.0', () => {
+    expect(normalEmoji.currentVersion).toEqual('14.0.0')
   })
 
   it('getVariationEmojis returns emojis with skintone array', () => {
@@ -120,7 +120,7 @@ describe('emoji-data-ts test', () => {
       expect(normalEmoji.getSkinInfo(emoji)).toEqual({
         image_url: '1f604.png',
         sheet_x: 32,
-        sheet_y: 56,
+        sheet_y: 24,
         short_name: 'smile',
         unified: '1F604'
       })
