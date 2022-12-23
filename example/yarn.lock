@@ -3526,20 +3526,20 @@ elliptic@^6.0.0:
     minimalistic-crypto-utils "^1.0.0"
 
 "emoji-data-ts@file:..":
-  version "0.0.5"
+  version "1.0.1"
   dependencies:
-    emoji-datasource-apple "7.0.2"
-    emoji-datasource-google "7.0.2"
+    emoji-datasource-apple "14.0.0"
+    emoji-datasource-google "14.0.0"
 
-emoji-datasource-apple@7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/emoji-datasource-apple/-/emoji-datasource-apple-7.0.2.tgz#20ba1788fbfa335147e1fd27bd54e11419964aa6"
-  integrity sha512-m127Ybt10utN5WF+0mehR2siDTh4CcS6N1Xq+0VE387XIZB+DYczrvc7amgAgEtema0lX1GpVzO2wEXKEChfqQ==
+emoji-datasource-apple@14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/emoji-datasource-apple/-/emoji-datasource-apple-14.0.0.tgz#ee040d210c07e038eb18f1c64a5a2f03ed977903"
+  integrity sha512-92Q53C44DzSqreHVlajEG24O5sFZjY1E9xRLWWyud7+/hW8S2vs4DiHuNuNZ0CLDCmZMQHc95okN9V8Mk6yBRw==
 
-emoji-datasource-google@7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/emoji-datasource-google/-/emoji-datasource-google-7.0.2.tgz#177eca3316e9dcf1f1350ed748c5679bb5a11a48"
-  integrity sha512-UeBkUeoYdxMnn25AU9zeqkARKLPsKqWpvvVXfM8gzogbwSZtNSoaTn0+Wya1Bs8iiVfZBDXhsBY0J0D06mitOQ==
+emoji-datasource-google@14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/emoji-datasource-google/-/emoji-datasource-google-14.0.0.tgz#9c80e305100afb6fc78e535ff49ac2825a335a19"
+  integrity sha512-/hXr4zEfcgKNfV3FR3DmTDhP3u2p1RYqEmW2eSQfkPYZbcKjfdwxZsRjBnnxxjj3sG/d/rtF6Ob7hwzN+LITHA==
 
 emoji-regex@^6.5.1:
   version "6.5.1"
