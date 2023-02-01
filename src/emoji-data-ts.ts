@@ -3,6 +3,7 @@ const currentVersion = '14.0.0'
 const emojis: Emoji[] = e
 
 export interface Emoji {
+  name: string
   short_name: string
   unified: string
   short_names: string[]
